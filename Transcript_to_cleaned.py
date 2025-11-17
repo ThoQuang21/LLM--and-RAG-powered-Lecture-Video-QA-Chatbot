@@ -6,7 +6,7 @@ import time
 from typing import Set, Dict, Optional
 
 # ==============================================================================
-# PHẦN 1: CÁC HÀM LOGIC (Dựa trên code gốc của bạn)
+# PHẦN 1: CÁC HÀM LOGIC 
 # ==============================================================================
 
 def initialize_gemini(api_key: str) -> (genai.GenerativeModel | None):
@@ -15,7 +15,6 @@ def initialize_gemini(api_key: str) -> (genai.GenerativeModel | None):
     """
     try:
         genai.configure(api_key=api_key)
-        # BẮT BUỘC DÙNG 1.5-FLASH ĐỂ GỬI NGUYÊN BÀI
         model = genai.GenerativeModel('gemini-2.5-flash')
         print("Đã kết nối Gemini thành công (Model: 2.5-Flash).")
         return model
@@ -26,7 +25,6 @@ def initialize_gemini(api_key: str) -> (genai.GenerativeModel | None):
 def read_entire_docx_file(source_path: str) -> (str | None):
     """
     Chức năng: Đọc TOÀN BỘ file .docx và gộp tất cả text lại thành 1 chuỗi.
-    (Đây là logic gốc bước 4.3 của bạn)
     """
     try:
         doc = Document(source_path)
@@ -47,7 +45,6 @@ def call_gemini_on_full_text(
 ) -> (str | None):
     """
     Chức năng: Gửi TOÀN BỘ text cho Gemini 1 LẦN DUY NHẤT.
-    (Đây là logic gốc bước 4.4 của bạn)
     """
     try:
         print(" <em> Đang gửi cho Gemini sửa (1 lần gọi)...</em>")
@@ -61,7 +58,6 @@ def call_gemini_on_full_text(
 def save_cleaned_text(cleaned_text: str, cleaned_path: str):
     """
     Chức năng: Lưu 1 khối text duy nhất vào file .docx.
-    (Đây là logic gốc bước 4.5 của bạn)
     """
     try:
         print(f" <em> Đang LƯU file đã sửa vào: {cleaned_path}</em>")
@@ -113,19 +109,19 @@ def start_watcher(
                     try:
                         time.sleep(5) # Chờ file ghi
 
-                        # 4.3. ĐỌC FILE GỐC (Logic gốc)
+                        # 4.3. ĐỌC FILE GỐC 
                         original_text = read_entire_docx_file(source_path)
                         if not original_text:
                             continue
 
-                        # 4.4. GỌI GEMINI SỬA (Logic gốc)
+                        # 4.4. GỌI GEMINI SỬA 
                         cleaned_text = call_gemini_on_full_text(model, original_text, prompt_template)
                         if not cleaned_text:
                             print(" <em> Gemini lỗi, sẽ thử lại ở vòng lặp sau.</em>")
                             time.sleep(10) # Nghỉ 10s nếu Gemini lỗi
                             continue
 
-                        # 4.5. LƯU VÀO THƯ MỤC MỚI (Logic gốc)
+                        # 4.5. LƯU VÀO THƯ MỤC MỚI 
                         save_cleaned_text(cleaned_text, cleaned_path)
                         print(f" <em> [THÀNH CÔNG]: Đã tạo file đã sửa cho {file_name}</em>")
 
@@ -196,7 +192,7 @@ Hãy trả về CHỈ văn bản đã được sửa sạch đẹp.
         "video_C1_2_transcript.docx": "URL2",
         "video_C2_1_transcript.docx": "URL3",
         "video_C2_2_1_transcript.docx": "URL4",
-        # Thêm các file .docx và URL video của bạn vào đây
+        # Thêm các file .docx và URL video vào đây
     }
 
     files_to_clean_set = set(VIDEO_MAP.keys())
