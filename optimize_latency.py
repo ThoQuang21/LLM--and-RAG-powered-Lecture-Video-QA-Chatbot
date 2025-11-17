@@ -17,7 +17,6 @@ except ImportError:
 
 # =======================================================
 # PHẦN 1: CÁC HÀM TIỆN ÍCH (HELPER FUNCTIONS)
-# (Giữ nguyên, không thay đổi)
 # =======================================================
 
 def parse_timestamp_to_seconds(ts_str: str) -> int:
@@ -47,7 +46,6 @@ def clean_youtube_url(url: str) -> str:
 
 # =======================================================
 # PHẦN 2: CÁC HÀM KHỞI TẠO (SETUP FUNCTIONS)
-# (Giữ nguyên, không thay đổi)
 # =======================================================
 
 def ket_noi_google_drive(mount_path: str = '/content/drive') -> bool:
@@ -139,7 +137,7 @@ def get_rag_answer_pipeline(
     """
     
     print(f"\n==============================================")
-    print(f"🚀 BẮT ĐẦU PIPELINE RAG CHO TRUY VẤN: '{original_query_text}'")
+    print(f" BẮT ĐẦU PIPELINE RAG CHO TRUY VẤN: '{original_query_text}'")
     print(f"==============================================")
 
     # --- GIAI ĐOẠN 2: BIẾN ĐỔI TRUY VẤN (HyDE + Multi-Query) ---
@@ -152,8 +150,8 @@ Bạn là một chuyên gia phân tích truy vấn.
 Hãy đọc câu hỏi của người dùng và phân rã nó thành 3 câu hỏi con, mỗi câu hỏi khai thác một khía cạnh khác nhau (định nghĩa, bản chất, mục đích).
 **Yêu cầu:** Chỉ trả lời bằng các câu hỏi con, mỗi câu hỏi trên một dòng.
 **Câu hỏi gốc:** "{original_query_text}"
-**Các câu hỏi con (phân rã):**
-"""
+**Các câu hỏi con (phân rã)**
+""" """
     transform_config = genai.types.GenerationConfig(temperature=0.0)
     generated_queries = []
     try:
@@ -171,7 +169,7 @@ Hãy viết một đoạn văn ngắn (khoảng 2-3 câu) trả lời trực ti�
 Hãy tập trung vào các từ khóa và khái niệm cốt lõi.
 **Câu hỏi:** "{original_query_text}"
 **Câu trả lời giả lập:**
-"""
+""" """
     hyde_config = genai.types.GenerationConfig(temperature=0.3)
     hyde_document_text = ""
     try:
@@ -380,7 +378,7 @@ def main():
     """
     
     # --- 1. Thiết lập hằng số ---
-    print("--- ⚙️ BẮT ĐẦU KHỞI CHẠY RAG PIPELINE (TỐI ƯU HÓA) ⚙️ ---")
+    print("--- BẮT ĐẦU KHỞI CHẠY RAG PIPELINE (TỐI ƯU HÓA) ---")
     DB_PATH = "my_rag_db_2"
     COLLECTION_NAME = "bai_giang_videos"
     EMBEDDING_MODEL_NAME = 'VoVanPhuc/sup-SimCSE-VietNamese-phobert-base'
@@ -392,7 +390,7 @@ def main():
 
 
     if not GEMINI_API_KEY:
-        print("\n❌ LỖI: Không tìm thấy 'GOOGLE_API_KEY'.")
+        print("\n LỖI: Không tìm thấy 'GOOGLE_API_KEY'.")
         print("Vui lòng thiết lập biến này trong Colab Secrets hoặc môi trường của bạn.")
         return
 
@@ -422,7 +420,7 @@ def main():
         return
         
     print("\n===================================")
-    print("✅ TẤT CẢ MODEL VÀ DB ĐÃ SẴN SÀNG!")
+    print(" TẤT CẢ MODEL VÀ DB ĐÃ SẴN SÀNG!")
     print("===================================")
 
     # --- 5. Đặt câu hỏi và chạy pipeline (VỚI THAM SỐ TỐI ƯU HÓA) ---
